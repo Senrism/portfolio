@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image";
 import "./style.css";
 import { FaGithub } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa';
