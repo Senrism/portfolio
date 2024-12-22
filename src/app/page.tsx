@@ -14,6 +14,8 @@ import gsap from 'gsap';
 import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaPython, FaBootstrap, FaPhp, FaAngular, FaVuejs, FaLaravel } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiTypescript, SiDjango, SiMysql, SiPostgresql, SiMongodb } from 'react-icons/si';
 import { SiAntdesign } from 'react-icons/si';
+import { Flip } from "gsap/all";
+import Image from "next/image";
 
 export default function Home() {
 
@@ -23,6 +25,7 @@ export default function Home() {
   let horizontalLines : any = '';
   let verticalDivs : any = '';
   let horizontalDivs : any = '';
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = (event: any) => {
     const container : any = containerRef.current;
@@ -37,6 +40,48 @@ export default function Home() {
     horizontalLines = document.querySelectorAll('.horizontal-line');
     verticalDivs = document.querySelectorAll('.vertical-line div');
     horizontalDivs = document.querySelectorAll('.horizontal-line div');
+
+    gsap.registerPlugin(Flip);
+
+    const handleClick = (e: MouseEvent) => {
+      let state = Flip.getState(".item");
+
+      moveCard();
+
+      Flip.from(state, {
+        targets: ".item",
+        ease: "sine.inOut",
+        absolute: true,
+        onEnter: (elements) => {
+          return gsap.from(elements, {
+            yPercent: 20,
+            opacity: 0,
+            ease: "sine.out"
+          });
+        },
+        onLeave: (element) => {
+          return gsap.to(element, {
+            yPercent: 20,
+            xPercent: -20,
+            transformOrigin: "bottom left",
+            opacity: 0,
+            ease: "sine.out",
+            onComplete() {
+              const slider = sliderRef.current;
+              if (slider) {
+                slider.removeChild(element[0]);
+              }
+            }
+          });
+        }
+      });
+    };
+
+    document.body.addEventListener("click", handleClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleClick);
+    };
   });
 
   const interactSkills = () => {
@@ -255,6 +300,18 @@ export default function Home() {
       gsap.to(".bullet-4", { display: 'none', duration: 0.5 });
     }
   }, 300); // Adjust the debounce delay as needed
+
+  const moveCard = () => {
+    const slider = sliderRef.current;
+    const lastItem = slider?.querySelector(".item:last-child");
+    if (slider && lastItem instanceof HTMLElement) {
+      lastItem.style.display = "none"; // Hide the last item
+      const newItem = document.createElement("div");
+      newItem.className = lastItem.className; // Set the same class name
+      newItem.textContent = lastItem.textContent; // Copy the text content
+      slider.insertBefore(newItem, slider.firstChild); // Insert the new item at the beginning of the slider
+    }
+  };
 
   return (
     <>
@@ -488,8 +545,44 @@ export default function Home() {
 
           </div>
           
-          <div id="projects" className="hero hero-color-two relative p-20" style={{ flexShrink: 0, width: '100vw', height: '100vh', overflow: 'hidden' }}>
-             
+          <div id="projects" className="hero hero-color-two relative p-20 flex justify-center items-center" style={{ flexShrink: 0, width: '100vw', height: '100vh', overflow: 'hidden' }}>
+            <div className="slider" ref={sliderRef}>
+              <div className="item item-5 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+                <div>
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      Cleaning Service System
+                    </a>
+                </div>
+              </div>
+              <div className="item item-4 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+                <div>
+                    <a href="https://airalqodiri.com/" target="_blank" rel="noopener noreferrer">
+                      https://airalqodiri.com/
+                    </a>
+                </div>
+              </div>
+              <div className="item item-3 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+                <div>
+                    <a href="https://www.erajaya.com/" target="_blank" rel="noopener noreferrer">
+                      https://www.erajaya.com/
+                    </a>
+                </div>
+              </div>
+              <div className="item item-2 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+                <div>
+                  <a href="#" target="_blank" rel="noopener noreferrer">
+                    Retail Solution System
+                  </a>
+                </div>
+              </div>
+              <div className="item item-1 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+                <div>
+                    <a href="http://elppd.kemendagri.go.id" target="_blank" rel="noopener noreferrer">
+                      http://elppd.kemendagri.go.id
+                    </a>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
     </>
