@@ -3,7 +3,7 @@ import "./style.css";
 import { FaGithub } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa';
-import React, { useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import {
   motion,
 } from "framer-motion";
@@ -14,7 +14,6 @@ import gsap from 'gsap';
 import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaPython, FaBootstrap, FaPhp, FaAngular, FaVuejs, FaLaravel } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiTypescript, SiDjango, SiMysql, SiPostgresql, SiMongodb } from 'react-icons/si';
 import { SiAntdesign } from 'react-icons/si';
-import { Flip } from "gsap/all";
 import Image from "next/image";
 
 export default function Home() {
@@ -25,7 +24,9 @@ export default function Home() {
   let horizontalLines : any = '';
   let verticalDivs : any = '';
   let horizontalDivs : any = '';
-  const sliderRef = useRef<HTMLDivElement>(null);
+
+
+  const [projectSectionOpened, setProjectSectionOpened] = useState('All');
 
   const handleScroll = (event: any) => {
     const container : any = containerRef.current;
@@ -40,48 +41,6 @@ export default function Home() {
     horizontalLines = document.querySelectorAll('.horizontal-line');
     verticalDivs = document.querySelectorAll('.vertical-line div');
     horizontalDivs = document.querySelectorAll('.horizontal-line div');
-
-    gsap.registerPlugin(Flip);
-
-    const handleClick = (e: MouseEvent) => {
-      let state = Flip.getState(".item");
-
-      moveCard();
-
-      Flip.from(state, {
-        targets: ".item",
-        ease: "sine.inOut",
-        absolute: true,
-        onEnter: (elements) => {
-          return gsap.from(elements, {
-            yPercent: 20,
-            opacity: 0,
-            ease: "sine.out"
-          });
-        },
-        onLeave: (element) => {
-          return gsap.to(element, {
-            yPercent: 20,
-            xPercent: -20,
-            transformOrigin: "bottom left",
-            opacity: 0,
-            ease: "sine.out",
-            onComplete() {
-              const slider = sliderRef.current;
-              if (slider) {
-                slider.removeChild(element[0]);
-              }
-            }
-          });
-        }
-      });
-    };
-
-    document.body.addEventListener("click", handleClick);
-
-    return () => {
-      document.body.removeEventListener("click", handleClick);
-    };
   });
 
   const interactSkills = () => {
@@ -107,7 +66,6 @@ export default function Home() {
   };
 
   const openSkillTree = debounce(() => {
-    console.log(isOpen);
     isOpen = !isOpen;
     
     verticalDivs.forEach((div: any, index: any) => {
@@ -127,14 +85,14 @@ export default function Home() {
     });
 
     if(isOpen) {
-      gsap.fromTo(".overlay", { opacity: 0 }, { opacity: 1, duration: 0.5 });
-      gsap.to(".header-sect", { color: '#FFFFFF', duration: 0.5 });
+      // gsap.fromTo(".overlay", { opacity: 0 }, { opacity: 1, duration: 0.5 });
+      // gsap.to(".header-sect", { color: '#FFFFFF', duration: 0.5 });
       gsap.to(".discover-text", { opacity: 0, duration: 0.5 });
-      gsap.to(".round-0", { width: '700px', height: '700px', border: '1px solid #FFFFFF', duration: 0.5 });
-      gsap.to(".round-1", { width: '600px', height: '600px', border: '1px solid #FFFFFF', duration: 0.5 });
-      gsap.to(".round-2", { width: '500px', height: '500px', border: '1px solid #FFFFFF', duration: 0.5 });
-      gsap.to(".round-3", { width: '400px', height: '400px', border: '1px solid #FFFFFF', duration: 0.5 });
-      gsap.to(".round-4", { width: '300px', height: '300px', border: '1px solid #FFFFFF', duration: 0.5 });
+      gsap.to(".round-0", { width: '700px', height: '700px', border: '1px solid #000000', duration: 0.5 });
+      gsap.to(".round-1", { width: '600px', height: '600px', border: '1px solid #000000', duration: 0.5 });
+      gsap.to(".round-2", { width: '500px', height: '500px', border: '1px solid #000000', duration: 0.5 });
+      gsap.to(".round-3", { width: '400px', height: '400px', border: '1px solid #000000', duration: 0.5 });
+      gsap.to(".round-4", { width: '300px', height: '300px', border: '1px solid #000000', duration: 0.5 });
       gsap.to(".round-1-1", { width: '50px', height: '50px', duration: 0.5, delay: 0.1 }).then(() => {
         gsap.fromTo(".round-1-1", 
           { y: 0 }, 
@@ -266,7 +224,7 @@ export default function Home() {
         { top: '100%', opacity: 1, duration: 6, repeat: -1, yoyo: true }
       );
     } else {
-      gsap.to(".overlay", { opacity: 0, duration: 0.5 });
+      // gsap.to(".overlay", { opacity: 0, duration: 0.5 });
       gsap.to(".header-sect", { color: '#000000', duration: 0.5 });
       gsap.to(".discover-text", { opacity: 1, duration: 0.5 });
       gsap.to(".round-0", { width: '0px', height: '0px', border: '0px', duration: 0.5 });
@@ -300,18 +258,6 @@ export default function Home() {
       gsap.to(".bullet-4", { display: 'none', duration: 0.5 });
     }
   }, 300); // Adjust the debounce delay as needed
-
-  const moveCard = () => {
-    const slider = sliderRef.current;
-    const lastItem = slider?.querySelector(".item:last-child");
-    if (slider && lastItem instanceof HTMLElement) {
-      lastItem.style.display = "none"; // Hide the last item
-      const newItem = document.createElement("div");
-      newItem.className = lastItem.className; // Set the same class name
-      newItem.textContent = lastItem.textContent; // Copy the text content
-      slider.insertBefore(newItem, slider.firstChild); // Insert the new item at the beginning of the slider
-    }
-  };
 
   return (
     <>
@@ -416,51 +362,51 @@ export default function Home() {
             </div>
 
             <div className="flex justify-around w-full h-full vertical-line absolute top-[0px] z-[2]">
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF] relative">
-                <span className="bullet-1 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#FFFFFF] rounded-full opacity-0"></span>
+              <div className="w-[1px] h-[0vh] bg-[#000000] relative">
+                <span className="bullet-1 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#000000] rounded-full opacity-0"></span>
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF] relative">
-                <span className="bullet-2 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#FFFFFF] rounded-full opacity-0"></span>
+              <div className="w-[1px] h-[0vh] bg-[#000000] relative">
+                <span className="bullet-2 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#000000] rounded-full opacity-0"></span>
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF] relative">
-                <span className="bullet-3 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#FFFFFF] rounded-full opacity-0"></span>
+              <div className="w-[1px] h-[0vh] bg-[#000000] relative">
+                <span className="bullet-3 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#000000] rounded-full opacity-0"></span>
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF]">
+              <div className="w-[1px] h-[0vh] bg-[#000000]">
               </div>
-              <div className="w-[1px] h-[0vh] bg-[#FFFFFF] relative">
-                <span className="bullet-4 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#FFFFFF] rounded-full opacity-0"></span>
+              <div className="w-[1px] h-[0vh] bg-[#000000] relative">
+                <span className="bullet-4 top-[20px] left-[-5px] absolute w-[10px] h-[10px] bg-[#000000] rounded-full opacity-0"></span>
               </div>
             </div>
             <div className="flex flex-wrap gap-10 w-full h-full horizontal-line absolute top-[0px] z-[2]">
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[100px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[100px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[200px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[200px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[300px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[300px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[400px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[400px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[500px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[500px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[600px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[600px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[700px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[700px]">
               </div>
-              <div className="w-[0vw] h-[1px] bg-[#FFFFFF] absolute top-[800px]">
+              <div className="w-[0vw] h-[1px] bg-[#000000] absolute top-[800px]">
               </div>
             </div>
             <div className="flex justify-center items-center h-full w-full z-[2]">
@@ -545,54 +491,84 @@ export default function Home() {
 
           </div>
           
-          <div id="projects" className="hero hero-color-two relative p-20 flex justify-center items-center" style={{ flexShrink: 0, width: '100vw', height: '100vh', overflow: 'hidden' }}>
-            <div className="slider" ref={sliderRef}>
-              <div className="item item-5 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
-                <div>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      Cleaning Service System
-                    </a>
-                </div>
+          <div id="projects" className="hero hero-color-two relative p-20" style={{ flexShrink: 0, width: '100vw', height: '100vh', overflow: 'hidden' }}>
+            <p className="text-[#000000] text-[35px] font-extrabold font-barlow tracking-wider absolute top-[10%] z-10 cursor-pointer">
+              PROJECTS
+            </p>
+            <div className="mt-[80px] flex items-center gap-[10px]">
+              <div onClick={() => setProjectSectionOpened('All')}>
+                <p className={`menu-item ${projectSectionOpened === 'All' ? 'active' : ''} font-bold text-[15px] font-barlow tracking-wider cursor-pointer`}>
+                  All
+                </p>
               </div>
-              <div className="item item-4 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
-                <div>
-                    <a href="https://airalqodiri.com/" target="_blank" rel="noopener noreferrer">
-                      https://airalqodiri.com/
-                    </a>
-                </div>
+              <div onClick={() => setProjectSectionOpened('Complete')}>
+                <p className={`menu-item ${projectSectionOpened === 'Complete' ? 'active' : ''} font-bold text-[15px] font-barlow tracking-wider cursor-pointer`}>
+                  Client Project
+                </p>
               </div>
-              <div className="item item-3 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
-                <div>
-                    <a href="https://www.erajaya.com/" target="_blank" rel="noopener noreferrer">
-                      https://www.erajaya.com/
-                    </a>
-                </div>
+              <div onClick={() => setProjectSectionOpened('On Going')}>
+                <p className={`menu-item ${projectSectionOpened === 'On Going' ? 'active' : ''} font-bold text-[15px] font-barlow tracking-wider cursor-pointer`}>
+                  Self Project
+                </p>
               </div>
-              <div className="item item-2 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+            </div>
+
+            <div className="project-list mt-[50px] flex items-center gap-[20px] flex-wrap">
+
+              {(projectSectionOpened === 'Complete' || projectSectionOpened === 'All') && 
                 <div>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    Retail Solution System
-                  </a>
+                  <div
+                    className="squared cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                    style={{
+                      background: `url("lppd.png") center/contain no-repeat`,
+                    }}
+                    onClick={() => window.open("https://lppd.kemendagri.go.id/", "_blank")}
+                  ></div>
+                  <p className="text-[#000000] text-[12px] font-medium font-barlow tracking-wider">LPPD (Laporan Pencatatan Pegawai Dalam Negeri)</p>
                 </div>
-              </div>
-              <div className="item item-1 flex justify-center items-center text-[#000000] text-[20px] font-barlow tracking-wider">
+              }
+              
+              {(projectSectionOpened === 'Complete' || projectSectionOpened === 'All') && 
                 <div>
-                    <a href="http://elppd.kemendagri.go.id" target="_blank" rel="noopener noreferrer">
-                      http://elppd.kemendagri.go.id
-                    </a>
+                  <div
+                    className="squared cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                    style={{
+                      background: `url("erajaya.png") center/contain no-repeat`,
+                    }}
+                    onClick={() => window.open("https://erajaya.com/", "_blank")}
+                  ></div>
+                  <p className="text-[#000000] text-[12px] font-medium font-barlow tracking-wider">Erajaya Website</p>
                 </div>
-              </div>
+              }
+              
+              {(projectSectionOpened === 'Complete' || projectSectionOpened === 'All') && 
+                <div>
+                  <div
+                    className="squared cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                    style={{
+                      background: `url("alqodiri.png") center/contain no-repeat`,
+                    }}
+                    onClick={() => window.open("https://airalqodiri.com/", "_blank")}
+                  ></div>
+                  <p className="text-[#000000] text-[12px] font-medium font-barlow tracking-wider">Alqodiri Website</p>
+                </div>
+              }
+              
+              {(projectSectionOpened === 'On Going' || projectSectionOpened === 'All') && 
+                <div>
+                  <div
+                    className="squared cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                    style={{
+                      background: `url("simple-hris.png") center/contain no-repeat`,
+                    }}
+                    onClick={() => window.open("https://github.com/Senrism/sample-hris", "_blank")}
+                  ></div>
+                  <p className="text-[#000000] text-[12px] font-medium font-barlow tracking-wider">Simple HRIS</p>
+                </div>
+              }
             </div>
           </div>
       </div>
     </>
-  );
-}
-
-function Skill({ icon }: { icon: JSX.Element }) {
-  return (
-    <div className="flex flex-col items-center">
-      {icon}
-    </div>
   );
 }
