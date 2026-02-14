@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mochamad Febry Lasena Darmawan",
-  description: "Portfolio",
+  title: "Mochamad Febry Lasena Darmawan - Lead Software Engineer & System Architect",
+  description: "Lead Software Engineer and System Architect specializing in scalable systems, cloud architecture, and engineering leadership. Building high-performance applications and leading technical teams.",
 };
 
 export default function RootLayout({
