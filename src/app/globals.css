@@ -2,73 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor targets so the fixed header never covers a heading. */
+    scroll-padding-top: 6rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply bg-ink-950 font-sans text-fg antialiased;
+  }
+
+  /* Respect the OS setting — motion sickness is a real accessibility need,
+     and this site leans on scroll animation. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::selection {
+    @apply bg-accent text-ink-950;
   }
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer components {
+  /* Small uppercase mono label — the recurring "technical" signal used for
+     eyebrows, section indices, and metadata. */
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-label text-fg-dim;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-/* Custom scrollbar */
+/* Scrollbar — dark, thin, no gradient. */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #08090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-  border-radius: 5px;
+  background: #1f242c;
+  border: 2px solid #08090b;
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #2563eb, #7c3aed);
+  background: #2a3039;
 }
 
-/* Smooth scrolling */
 html {
-  scroll-behavior: smooth;
-}
-
-/* Selection */
-::selection {
-  background-color: #3b82f6;
-  color: white;
-}
-
-::-moz-selection {
-  background-color: #3b82f6;
-  color: white;
+  scrollbar-color: #1f242c #08090b;
+  scrollbar-width: thin;
 }
