@@ -13,15 +13,3 @@ export const SITE = {
   // Consolidated to the vanity URL — verify this is the live one.
   linkedin: "https://www.linkedin.com/in/febry-lasena-darmawan/",
 } as const;
-
-export const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
-] as const;
-
-/** Section ids, derived so scroll-spy can never drift out of sync with the nav. */
-export const SECTION_IDS = NAV_ITEMS.map((item) => item.id);

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Lora } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 
@@ -17,6 +18,13 @@ const geistMono = localFont({
   display: "swap",
 });
 
+/** Display serif. Self-hosted at build time by next/font — no runtime request. */
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-lora",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.role}`,
   description: SITE.description,
@@ -28,8 +36,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08090B",
-  colorScheme: "dark",
+  themeColor: "#0B0B0B",
+  colorScheme: "light",
+  // The desktop is a fixed surface; letting it zoom breaks window dragging.
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -38,7 +50,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${lora.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

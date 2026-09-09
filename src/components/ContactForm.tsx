@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { FaPaperPlane } from "react-icons/fa";
 import { SITE } from "@/lib/site";
-import { fadeUp, inView } from "@/lib/motion";
 
 const FIELD_CLASS =
-  "w-full rounded-md border border-white/[0.08] bg-ink-900/60 px-4 py-3 text-sm text-fg placeholder:text-fg-dim transition-colors duration-300 focus:border-accent/40 focus:outline-none focus:ring-1 focus:ring-accent/30";
+  "w-full rounded-lg border-3 border-ink bg-paper px-3.5 py-2.5 font-sans text-[14px] text-ink placeholder:text-ink-dim focus:outline-none focus:ring-0";
 
-const LABEL_CLASS = "label mb-2 block";
+const LABEL_CLASS =
+  "mb-1.5 block font-sans text-[10px] font-semibold uppercase tracking-label text-ink-muted";
 
 const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
 
@@ -40,13 +38,8 @@ export default function ContactForm() {
   };
 
   return (
-    <motion.form
-      {...inView}
-      variants={fadeUp}
-      onSubmit={handleSubmit}
-      className="w-full"
-    >
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={handleSubmit} className="w-full">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={LABEL_CLASS}>
             Name
@@ -79,7 +72,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label htmlFor="subject" className={LABEL_CLASS}>
           Subject
         </label>
@@ -94,7 +87,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label htmlFor="message" className={LABEL_CLASS}>
           Message
         </label>
@@ -104,7 +97,7 @@ export default function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           required
-          rows={6}
+          rows={5}
           className={`${FIELD_CLASS} resize-none`}
           placeholder="Tell me about your project..."
         />
@@ -112,25 +105,27 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="group mt-6 flex items-center gap-2.5 rounded-md bg-accent px-5 py-3 text-sm font-medium text-ink-950 transition-all duration-300 hover:bg-accent-dim"
+        className="mt-6 rounded-full border-3 border-ink bg-ink px-5 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-label text-paper transition-colors duration-150 hover:bg-paper hover:text-ink"
       >
-        <FaPaperPlane className="text-xs transition-transform duration-300 group-hover:translate-x-0.5" />
         Compose message
       </button>
 
-      <p className="mt-4 text-xs leading-relaxed text-fg-dim" aria-live="polite">
+      <p
+        className="mt-4 font-sans text-xs leading-relaxed text-ink-dim"
+        aria-live="polite"
+      >
         {hasHandedOff
           ? "Your email client should have opened. "
           : "This opens your email client. "}
         You can also reach me directly at{" "}
         <a
           href={`mailto:${SITE.email}`}
-          className="text-fg-muted underline decoration-white/20 underline-offset-2 transition-colors hover:text-accent"
+          className="font-medium text-ink underline underline-offset-2"
         >
           {SITE.email}
         </a>
         .
       </p>
-    </motion.form>
+    </form>
   );
 }

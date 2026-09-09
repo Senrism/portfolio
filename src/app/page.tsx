@@ -1,31 +1,13 @@
-"use client";
-
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Experience from "@/components/sections/Experience";
-import Skills from "@/components/sections/Skills";
-import Projects from "@/components/sections/Projects";
-import Contact from "@/components/sections/Contact";
-import { useScrollSpy } from "@/hooks/useScrollSpy";
-import { SECTION_IDS } from "@/lib/site";
+import Desktop from "@/components/os/Desktop";
+import { WindowManagerProvider } from "@/components/os/WindowManager";
 
 export default function Home() {
-  const activeSection = useScrollSpy(SECTION_IDS);
-
+  // Land with About already open. An empty desk tells a first-time visitor
+  // nothing, and opening one window up front also demonstrates that windows
+  // are the interface rather than decoration.
   return (
-    <>
-      <Header activeSection={activeSection} />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <WindowManagerProvider initialOpen={["about"]}>
+      <Desktop />
+    </WindowManagerProvider>
   );
 }
