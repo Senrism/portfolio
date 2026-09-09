@@ -1,42 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaCode, FaServer, FaCloud, FaBrain } from "react-icons/fa";
+import { FaCode, FaServer, FaDocker, FaBrain } from "react-icons/fa";
 import { fadeUp, inView, stagger } from "@/lib/motion";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 
 const CAPABILITIES = [
   { icon: FaCode, title: "Clean Code", detail: "Maintainable & scalable" },
-  { icon: FaServer, title: "System Design", detail: "Distributed architecture" },
-  { icon: FaBrain, title: "AI-Assisted Analysis", detail: "System design & debugging" },
-  { icon: FaCloud, title: "Cloud Native", detail: "AWS, GCP, Azure" },
+  { icon: FaServer, title: "ERP & Retail Systems", detail: "POS through finance" },
+  {
+    icon: FaBrain,
+    title: "AI-Assisted Development",
+    detail: "Claude Code in the loop",
+  },
+  { icon: FaDocker, title: "Docker & CI", detail: "GitHub / GitLab pipelines" },
 ];
 
+/** Every figure here is one the CV states or directly implies — nothing else. */
 const METRICS = [
-  { label: "System availability", value: "99.9%" },
-  { label: "Performance score", value: "98/100" },
-  { label: "Engineers mentored", value: "20+" },
-  { label: "Requests handled daily", value: "10M+" },
+  { label: "Years in the tech industry", value: "7" },
+  { label: "Building software since", value: "2019" },
+  { label: "Team members coordinated", value: "6+" },
+  { label: "Enterprise domains shipped", value: "8+" },
 ];
 
 export default function About() {
   return (
     <Section id="about">
-      <SectionHeading
-        index="01 / About"
-        title="Engineering leadership & architecture"
-      />
+      <SectionHeading index="01 / About" title="Enterprise systems, end to end" />
 
       <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
         <motion.div {...inView} variants={fadeUp}>
           <p className="text-base leading-relaxed text-fg-muted md:text-lg">
-            I have taken on multiple roles within a company and its teams. Most of my
-            responsibilities are closely related to application architecture design,
-            program planning, team management, and — most importantly — hands-on coding.
-            I remain highly active in continuously learning, reading, and implementing
-            modern techniques and programming languages into both the systems I maintain
-            and the new applications I develop.
+            Seven years in the tech industry since 2019, across several roles and teams.
+            My work sits close to application architecture, program planning, and
+            coordinating a team of six or more — but most importantly, hands-on coding.
+            I have built internal systems such as HRIS, task management, and scheduling
+            tools, developed end-to-end ERP flows from POS through finance, and I keep
+            learning and folding modern techniques — AI tooling included — into the
+            systems I maintain and the applications I build.
           </p>
 
           <motion.div

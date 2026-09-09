@@ -2,12 +2,12 @@ export const SITE = {
   name: "Mochamad Febry Lasena Darmawan",
   shortName: "Febry Lasena",
   initials: "FLD",
-  role: "AI Engineering Manager",
+  role: "Senior Software Engineer",
   tagline:
-    "Engineering manager who stays hands-on. I design and analyze systems, apply AI to solve real problems, and stay in the code on every project.",
+    "Seven years building internal systems and end-to-end ERP flows from POS to finance — hands-on in the code, with AI tools in the loop to move faster.",
   description:
-    "AI Engineering Manager leading technical teams while staying hands-on across every project — system design and analysis, AI-assisted problem solving, and enterprise platforms spanning retail, government, and healthcare.",
-  email: "lasenafebry@gmail.com",
+    "Senior Software Engineer with seven years in the tech industry — internal systems such as HRIS, task management, and scheduling tools, end-to-end ERP flows from POS to finance, and AI-assisted development across enterprise platforms in retail, government, and healthcare.",
+  email: "lasenafeb@gmail.com",
   github: "https://github.com/Senrism",
   // NOTE: the old site had two different LinkedIn URLs (hero vs contact).
   // Consolidated to the vanity URL — verify this is the live one.

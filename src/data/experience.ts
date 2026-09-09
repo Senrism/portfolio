@@ -6,42 +6,57 @@ export interface Experience {
   achievements: string[];
 }
 
+/**
+ * Source of truth: the current CV (FEBRY LASENA - V2). Titles, employers and
+ * date ranges mirror it exactly — keep the two in sync when either changes.
+ * Bullets are the CV's, lightly reworded for the web; no metric appears here
+ * that the CV does not support.
+ */
 export const EXPERIENCES: Experience[] = [
   {
-    title: "AI Engineering Manager",
+    title: "Senior Software Engineer",
     company: "The One Retail",
-    period: "2025 — Present",
+    period: "Nov 2025 — Present",
     description:
-      "Lead engineering while staying hands-on across every project — designing merchandising, ERP, and POS systems, and applying AI to system analysis and problem solving.",
+      "Building and maintaining enterprise applications that span ERP, procurement, supplier management, inventory, finance, and product information — supporting operational workflows across multiple countries.",
     achievements: [
-      "Developed robust ERP and inventory management systems for enterprise-level operations",
-      "Integrated leading platforms such as Grab and Shopee for seamless omnichannel capabilities",
-      "Designed and maintained scalable architecture for ERP, loyalty, and voucher systems to ensure long-term adaptability and high performance",
+      "Developed and optimized inventory and financial data processing workflows covering stock history, daily inventory aggregation, and moving average cost calculations",
+      "Integrated enterprise systems with external e-commerce APIs, handling authentication, token lifecycle, merchant linking, API errors, and rate limit constraints",
+      "Developed and maintained enterprise applications across ERP, procurement, supplier management, inventory, finance, product information, and operational workflows in multiple countries",
     ],
   },
   {
-    title: "Lead Software Engineer",
-    company: "Alturian Indonesia",
-    period: "2022 — 2025",
+    title: "Senior Lead Engineer",
+    company: "Alturian",
+    period: "Dec 2022 — Nov 2025",
     description:
-      "Led a team of 20+ engineers, architecting scalable systems and driving technical decisions for high-traffic applications.",
+      "Led work on established enterprise systems — recovering undocumented business logic, tightening authorization and security practices, and modernizing the mobile build toolchain.",
     achievements: [
-      "Architected microservices infrastructure handling 10M+ requests/day",
-      "Reduced system latency by 40% through optimization",
-      "Developed a customized internal social media application for the company",
-      "Developed loyalty and POS (point of sale) systems tailored to business needs",
-      "Mentored over 20 engineers, promoting 4 of them to tech lead roles",
+      "Analyzed existing legacy code and database structures to reconstruct undocumented business processes",
+      "Improved authorization design by aligning application-level permissions with centralized role management",
+      "Migrated Ionic mobile applications to Capacitor 7, resolving native Android/iOS dependency, build configuration, barcode scanning, and push notification compatibility issues",
+      "Strengthened application security by identifying third-party dependency risks, reducing unnecessary external CDN dependencies, and hardening the handling of production data, credentials, and third-party integrations",
     ],
   },
   {
-    title: "Senior Full Stack Developer",
-    company: "Alturian Indonesia",
-    period: "2021 — 2022",
+    title: "Junior Engineer",
+    company: "Alturian",
+    period: "Jul 2021 — Dec 2022",
     description:
-      "Built end-to-end features, optimized performance, and contributed to architectural decisions.",
+      "Worked across enterprise and supplier-facing applications, focused on access control and day-to-day application quality.",
     achievements: [
-      "Developed real-time features using WebSockets",
-      "Improved application performance by 50%",
+      "Implemented and reviewed role-based access control (RBAC) for enterprise and supplier-facing applications, keeping menu visibility and module access aligned with user roles and business requirements",
+      "Resolved low-severity application issues including incorrect labels, duplicate entries, and UI inconsistencies",
+    ],
+  },
+  {
+    title: "Junior Engineer",
+    company: "Labmedio Pratama",
+    period: "Sep 2019 — Apr 2021",
+    description:
+      "First engineering role, building internal tooling for laboratory operations.",
+    achievements: [
+      "Developed and maintained an internal Lab Scheduling System for laboratory resource booking, availability management, and scheduling",
     ],
   },
 ];

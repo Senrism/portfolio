@@ -1,22 +1,15 @@
 import type { IconType } from "react-icons";
+import { FaPython, FaLaravel, FaReact, FaVuejs, FaDocker } from "react-icons/fa";
 import {
-  FaReact,
-  FaNodeJs,
-  FaPython,
-  FaLaravel,
-  FaAws,
-  FaDocker,
-} from "react-icons/fa";
-import {
-  SiNextdotjs,
+  SiPhp,
   SiTypescript,
-  SiDjango,
+  SiJavascript,
   SiMysql,
   SiPostgresql,
-  SiMongodb,
   SiRedis,
-  SiGo,
-  SiN8N,
+  SiGithub,
+  SiGitlab,
+  SiClaude,
 } from "react-icons/si";
 
 export interface Skill {
@@ -30,45 +23,48 @@ export interface SkillGroup {
 }
 
 /**
- * Grouped by layer rather than listed flat — reads as an architecture summary
- * instead of a logo wall. Brand colors are deliberately omitted: several
- * (Next.js black, Django dark green) are invisible on a dark canvas, and a
- * 15-color grid fights the single-accent system.
+ * Mirrors the SKILLS block of the current CV (FEBRY LASENA - V2), category for
+ * category, so the site never advertises a stack the CV does not back.
+ * Brand colors are deliberately omitted: several (GitHub black, Next.js black)
+ * are invisible on a dark canvas, and a multi-color grid fights the
+ * single-accent system.
  */
 export const SKILL_GROUPS: SkillGroup[] = [
   {
-    category: "Frontend",
+    category: "Languages",
     skills: [
-      { name: "React", icon: FaReact },
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "TypeScript", icon: SiTypescript },
-    ],
-  },
-  {
-    category: "Backend",
-    skills: [
-      { name: "Go", icon: SiGo },
-      { name: "Node.js", icon: FaNodeJs },
+      { name: "PHP", icon: SiPhp },
       { name: "Python", icon: FaPython },
-      { name: "Django", icon: SiDjango },
-      { name: "Laravel", icon: FaLaravel },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "JavaScript", icon: SiJavascript },
     ],
   },
   {
-    category: "Data",
+    category: "Frameworks",
     skills: [
-      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "Laravel", icon: FaLaravel },
+      { name: "React", icon: FaReact },
+      { name: "Vue", icon: FaVuejs },
+    ],
+  },
+  {
+    category: "Databases",
+    skills: [
       { name: "MySQL", icon: SiMysql },
-      { name: "MongoDB", icon: SiMongodb },
+      { name: "PostgreSQL", icon: SiPostgresql },
       { name: "Redis", icon: SiRedis },
     ],
   },
   {
-    category: "Platform",
+    category: "DevOps",
     skills: [
-      { name: "AWS", icon: FaAws },
+      { name: "GitHub", icon: SiGithub },
+      { name: "GitLab", icon: SiGitlab },
       { name: "Docker", icon: FaDocker },
-      { name: "n8n", icon: SiN8N },
     ],
+  },
+  {
+    category: "AI-Assisted Development",
+    skills: [{ name: "Claude Code", icon: SiClaude }],
   },
 ];

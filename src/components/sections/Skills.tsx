@@ -12,7 +12,7 @@ export default function Skills() {
       <SectionHeading
         index="03 / Stack"
         title="Technical toolkit"
-        description="Grouped by layer — the tools I reach for when designing and shipping production systems."
+        description="The languages, frameworks, and tooling I reach for when designing and shipping production systems."
       />
 
       <motion.div {...inView} variants={stagger(0.1)} className="space-y-px">
